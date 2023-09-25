@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include "Stack.h"
+
 void STInit(ST* pst)
 {
 	assert(pst);
@@ -12,16 +13,17 @@ void STDestroy(ST* pst)
 {
 	assert(pst);
 	free(pst->a);
+	pst->a = NULL;
 	pst->top = 0;
 	pst->capacity = 0;
 }
 
-void STPush(ST* pst, STDataType x)
+void STPush(ST* pst,STDataType x)
 {
 	if (pst->top == pst->capacity) {
-		int newCapacity = pst->capacity == 0 ? 4 : pst->capacity * 2;
-		STDataType* tmp = (STDataType*)realloc(pst->a, sizeof(STDataType) * newCapacity);
-		if(tmp==NULL){
+		int newCapacity = pst->capacity == 0 ? 4 :pst-> capacity * 2;
+		STDataType* tmp = (STDataType*)realloc(pst->a, newCapacity * sizeof(STDataType));
+		if (tmp == NULL) {
 			perror("realloc fail");
 			return;
 		}
@@ -39,17 +41,17 @@ void STPop(ST* pst)
 	pst->top--;
 }
 
+STDataType STTop(ST* pst)
+{
+	assert(pst);
+	assert(!STEmpty(pst));//栈为空则不能访问
+	return pst->a[pst->top - 1];
+}
+
 bool STEmpty(ST* pst)
 {
 	assert(pst);
 	return pst->top == 0;
-}
-
-STDataType STTop(ST* pst)
-{
-	assert(pst);
-	assert(!STEmpty(pst));
-	return pst->a[pst->top - 1];
 }
 
 int STSize(ST* pst)

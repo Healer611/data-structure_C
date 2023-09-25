@@ -8,12 +8,12 @@ void test1()
 	STPush(&st, 999);
 	STPush(&st, 99);
 	STPush(&st, 9);
-	printf("%d ", STTop(&st));
+	//printf("%d ", STTop(&st));
 	//STPop(&st);
 	//printf("%d ", STTop(&st));
 
 	while (!STEmpty(&st)) {
-		printf("%d", STTop(&st));
+		printf("%d ", STTop(&st));
 		STPop(&st);
 	}
 	STDestroy(&st);
