@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include <stdio.h>
-
+#include <stdlib.h>
+#include <string.h>
 //实现向右旋转k次数组
 // 旋转一次[1,2,3,4,5]变为[5,1,2,3,4]
 
