@@ -23,9 +23,9 @@ int missingNumber(int* nums, int numsSize) {
     return x;
 }
 //�Ȳʽ
-int missingNumber(int* nums, int numsSize) {
-    int x = (1 + numsSize) * numsSize / 2;
-    for (int i = 0; i < numsSize; i++)
-        x -= nums[i];
-    return x;
-}
+//int missingNumber(int* nums, int numsSize) {
+//    int x = (1 + numsSize) * numsSize / 2;
+//    for (int i = 0; i < numsSize; i++)
+//        x -= nums[i];
+//    return x;
+//}
