@@ -27,6 +27,7 @@ void test1()
 
 	SLDestroy(&s);
 }
+
 int main()
 {
 	test1();
