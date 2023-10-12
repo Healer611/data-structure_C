@@ -13,8 +13,8 @@ void test1()
 	SLPushFront(&s, 0);
 	SLPopBack(&s, 50);
 	SLPopFront(&s, 0);
-	//SLInsert(&s, 2, 555);
-	//SLErase(&s, 4);
+	SLInsert(&s, 2, 555);
+	SLErase(&s, 4);
 
 
 	SLPrint(&s);
