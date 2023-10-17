@@ -87,12 +87,13 @@ struct ListNode* middleNode(struct ListNode* head) {
 
 
 ////21. 合并两个有序链表
+// https://leetcode.cn/problems/merge-two-sorted-lists/description/
  //Definition for singly-linked list.
  struct ListNode {
      int val;
       struct ListNode *next;
  };
- 
+ //尾插
 struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
     if (list1 == NULL)
         return list2;
@@ -135,7 +136,7 @@ struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
         tail->next = list1;
     if (list2)
         tail->next = list2;
-    return head;
+    return head;0
 }
 
 
@@ -147,8 +148,7 @@ struct ListNode {
     int val;
     struct ListNode *next;
 };
- 
-
+ //第一种调转链表方向
 struct ListNode* reverseList(struct ListNode* head) {
     if (head == NULL)
         return NULL;
@@ -164,4 +164,108 @@ struct ListNode* reverseList(struct ListNode* head) {
     }
     return n1;
 }
+//第二种头插
+struct ListNode* reverseList(struct ListNode* head) {
+    struct ListNode* cur = head;
+    struct ListNode* rhead = NULL;
+    while (cur) {
+        struct ListNode* next = cur->next;
+        cur->next = rhead;
+        rhead = cur;
+        cur = next;
+    }
+    return rhead;
+}
 
+
+//链表中倒数第k个结点
+//https://www.nowcoder.com/practice/529d3ae5a407492994ad2a246518148a?tpId=13&&tqId=11167&rp=2&ru=/activity/oj&qru=/ta/coding-interviews/question-ranking
+struct ListNode* FindKthToTail(struct ListNode* pListHead, int k) {
+    struct ListNode* slow = pListHead, * fast = pListHead;
+    int n = 0;
+    while (k) {
+        if (fast == NULL)//k大于链表长度也就是fast为空时
+            return 0;
+        fast = fast->next;
+        k--;
+    }
+
+    while (fast) {
+        slow = slow->next;
+        fast = fast->next;
+    }
+    if (k > n)
+        return 0;
+    return slow;
+}
+
+
+//CM11 链表分割
+
+struct ListNode {
+    int val;
+    struct ListNode *next;
+
+};
+struct ListNode* (struct ListNode* pHead，int x)
+{
+    struct ListNode* lesshead, * lesstail, * greaterhead, * greatertail;
+    lesshead = lesstail = (struct ListNode*)malloc(sizeof(struct ListNode));
+    greaterhead = greatertail = (struct ListNode*)malloc(sizeof(struct ListNode));
+    struct ListNode* cur = pHead;
+    while (cur) {
+        if (cur->val < x) {
+            lesstail->next = cur;
+            lesstail = lesstail->next;
+        }
+        else {
+            greatertail->next = cur;
+            greatertail = greatertail->next;
+        }
+        cur = cur->next;
+    }
+    lesstail->next = greaterhead->next;
+    greatertail->next = NULL;
+    pHead = lesshead->next;
+    free(lesshead);
+    free(greaterhead);
+
+    return pHead;
+}
+
+class PalindromeList {
+public:
+    struct ListNode* middleNode(struct ListNode* head) {
+        struct ListNode* slow = head;
+        struct ListNode* fast = head;
+        while (fast && fast->next) {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        return slow;
+    }
+    struct ListNode* reverseList(struct ListNode* head) {
+        struct ListNode* cur = head, * rhead = NULL;
+        while (cur) {
+            struct ListNode* next = cur->next;
+            cur->next = rhead;
+            rhead = cur;
+            cur = next;
+        }
+        return rhead;
+    }
+    bool chkPalindrome(ListNode* head) {
+        struct ListNode* mid = middleNode(head);
+        struct ListNode* rmid = reverseList(mid);
+        while (rmid) {
+            if (rmid->val == head->val) {
+                rmid = rmid->next;
+                head = head->next;
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
+    }
+};
