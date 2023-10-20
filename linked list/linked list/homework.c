@@ -86,6 +86,7 @@ struct ListNode* middleNode(struct ListNode* head) {
 
 
 
+
 ////21. 合并两个有序链表
 // https://leetcode.cn/problems/merge-two-sorted-lists/description/
  //Definition for singly-linked list.
@@ -136,9 +137,8 @@ struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
         tail->next = list1;
     if (list2)
         tail->next = list2;
-    return head;0
+    return head;
 }
-
 
 
 //206. 反转链表
@@ -194,8 +194,7 @@ struct ListNode* FindKthToTail(struct ListNode* pListHead, int k) {
         slow = slow->next;
         fast = fast->next;
     }
-    if (k > n)
-        return 0;
+
     return slow;
 }
 
@@ -211,8 +210,10 @@ class Partition {
 public:
     ListNode* partition(ListNode* pHead, int x) {
         struct ListNode* lesshead, * lesstail, * greaterhead, * greatertail;
+
         lesshead = lesstail = (struct ListNode*)malloc(sizeof(struct ListNode));
         greaterhead = greatertail = (struct ListNode*)malloc(sizeof(struct ListNode));
+
         struct ListNode* cur = pHead;
         while (cur) {
             if (cur->val < x) {
@@ -225,11 +226,14 @@ public:
             }
             cur = cur->next;
         }
+
         lesstail->next = greaterhead->next;
         greatertail->next = NULL;
         pHead = lesshead->next;
+
         free(lesshead);
         free(greaterhead);
+
         return pHead;
     }
 };
