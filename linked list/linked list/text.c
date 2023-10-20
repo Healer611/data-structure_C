@@ -12,9 +12,12 @@ void test1()
 
 	//SLPopFront(&plist);
 
-	SLTNode* pos = STFind(plist, 3);
+	SLTNode* pos = STFind(plist, 4);
 	SLInsert(&plist, pos, 99);
+	SLErase(&plist, pos);
 
+	SLTNode* pos2 = STFind(plist, 99);
+	SLErase(&plist, pos2);
 	//pos = STFind(plist, 2);
 	//if (pos)
 	//{

@@ -110,7 +110,10 @@ void SLInsert(SLTNode** pphead, SLTNode* pos, SLTDataType x)
 	assert(pphead);
 	assert(pos);
 	if (*pphead == pos){//在头节点前插入等于头插
-		SLPushFront(pphead, x);
+		//SLPushFront(pphead, x);
+		SLTNode* newnode = BuyLTNode(x);
+		newnode->next = *pphead;
+		*pphead = newnode;
 	}
 	else {
 		SLTNode* prev = *pphead;//用于找到pos前的位置
@@ -139,8 +142,11 @@ void SLErase(SLTNode** pphead, SLTNode* pos)// 删除pos位置的值
 {
 	assert(pphead);
 	assert(*pphead);//链表为空则不能删除
-	if (pos = *pphead){
-		SLPopFront(pphead);
+	if (pos == *pphead){
+		//SLPopFront(pphead);
+		SLTNode* cur = (*pphead)->next;
+		free(*pphead);
+		*pphead = cur;
 	}
 	else {
 		SLTNode* prev = *pphead;
