@@ -9,7 +9,7 @@ struct ListNode {
     int val;
     struct ListNode *next;
 };
- 
+
 //***第一种***
 struct ListNode* removeElements(struct ListNode* head, int val) {
     struct ListNode* prev = NULL, * cur = head;
@@ -201,38 +201,42 @@ struct ListNode* FindKthToTail(struct ListNode* pListHead, int k) {
 
 
 //CM11 链表分割
-
+//https://www.nowcoder.com/practice/0e27e0b064de4eacac178676ef9c9d70?tpId=8&&tqId=11004&rp=2&ru=/activity/oj&qru=/ta/cracking-the-coding-interview/question-ranking
 struct ListNode {
     int val;
     struct ListNode *next;
 
 };
-struct ListNode* (struct ListNode* pHead，int x)
-{
-    struct ListNode* lesshead, * lesstail, * greaterhead, * greatertail;
-    lesshead = lesstail = (struct ListNode*)malloc(sizeof(struct ListNode));
-    greaterhead = greatertail = (struct ListNode*)malloc(sizeof(struct ListNode));
-    struct ListNode* cur = pHead;
-    while (cur) {
-        if (cur->val < x) {
-            lesstail->next = cur;
-            lesstail = lesstail->next;
+class Partition {
+public:
+    ListNode* partition(ListNode* pHead, int x) {
+        struct ListNode* lesshead, * lesstail, * greaterhead, * greatertail;
+        lesshead = lesstail = (struct ListNode*)malloc(sizeof(struct ListNode));
+        greaterhead = greatertail = (struct ListNode*)malloc(sizeof(struct ListNode));
+        struct ListNode* cur = pHead;
+        while (cur) {
+            if (cur->val < x) {
+                lesstail->next = cur;
+                lesstail = lesstail->next;
+            }
+            else {
+                greatertail->next = cur;
+                greatertail = greatertail->next;
+            }
+            cur = cur->next;
         }
-        else {
-            greatertail->next = cur;
-            greatertail = greatertail->next;
-        }
-        cur = cur->next;
+        lesstail->next = greaterhead->next;
+        greatertail->next = NULL;
+        pHead = lesshead->next;
+        free(lesshead);
+        free(greaterhead);
+        return pHead;
     }
-    lesstail->next = greaterhead->next;
-    greatertail->next = NULL;
-    pHead = lesshead->next;
-    free(lesshead);
-    free(greaterhead);
+};
 
-    return pHead;
-}
 
+//OR36 链表的回文结构
+//https://www.nowcoder.com/practice/d281619e4b3e4a60a2cc66ea32855bfa?tpId=49&&tqId=29370&rp=1&ru=/activity/oj&qru=/ta/2016test/question-ranking
 class PalindromeList {
 public:
     struct ListNode* middleNode(struct ListNode* head) {
@@ -269,3 +273,106 @@ public:
         return true;
     }
 };
+
+
+//160. 相交链表
+//https://leetcode.cn/problems/intersection-of-two-linked-lists/description/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode* getIntersectionNode(struct ListNode* headA, struct ListNode* headB) {
+    struct ListNode* tailA = headA;
+    struct ListNode* tailB = headB;
+    int lenA = 1, lenB = 1;
+    while (tailA->next) {
+        tailA = tailA->next;
+        lenA++;
+    }
+    while (tailB->next) {
+        tailB = tailB->next;
+        lenB++;
+    }
+    if (tailA != tailB) {
+        return NULL;
+    }
+    int gap = abs(lenA - lenB);
+    struct ListNode* longList = headA;
+    struct ListNode* shortList = headB;
+    if (lenA < lenB) {
+        longList = headB;
+        shortList = headA;
+    }
+    while (gap--) {
+        longList = longList->next;
+    }
+    while (longList != shortList) {
+        longList = longList->next;
+        shortList = shortList->next;
+    }
+    return longList;
+}
+
+
+#include <stdbool.h>
+//141. 环形链表
+//https://leetcode.cn/problems/linked-list-cycle/description/
+bool hasCycle(struct ListNode* head) {
+    struct ListNode* fast = head;
+    struct ListNode* slow = head;
+    while (fast && fast->next) {
+        fast = fast->next->next;
+        slow = slow->next;
+        if (fast == slow)
+            return true;
+    }
+    return false;
+}
+
+//142. 环形链表 II
+//https://leetcode.cn/problems/linked-list-cycle-ii/description/
+
+struct ListNode* detectCycle(struct ListNode* head) {
+    struct ListNode* fast = head;
+    struct ListNode* slow = head;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (fast == slow) {
+            struct ListNode* meet = slow;
+            while (head != meet) {
+                head = head->next;
+                meet = meet->next;
+            }
+            return meet;
+        }
+    }
+    return NULL;
+}
+
+
+struct ListNode* detectCycle(struct ListNode* head) {
+    struct ListNode* fast = head;
+    struct ListNode* slow = head;
+    if (head == NULL || head->next == NULL) {
+        return NULL;
+    }
+    while (fast && fast->next) {
+        fast = fast->next->next;
+        slow = slow->next;
+        if (fast == slow)
+            break;
+    }
+    if (fast != slow) {
+        return NULL;
+    }
+    struct ListNode* cur = head;
+    while (cur != slow) {
+        slow = slow->next;
+        cur = cur->next;
+    }
+    return cur;
+}
