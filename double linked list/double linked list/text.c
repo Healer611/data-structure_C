@@ -2,6 +2,9 @@
 #include "List.h"
 
 void test1() {
+	/*LTNode* plist;
+	LTInit(&plist);*/
+
 	LTNode* plist = LTInit();
 	LTPushFront(plist, 1);
 	LTPushFront(plist, 2);
@@ -9,7 +12,8 @@ void test1() {
 	LTPushFront(plist, 4);
 	LTPushBack(plist, 888);
 	LTPushBack(plist, 888);
-
+	LTPopFront(plist);
+	LTPopBack(plist);
 	LTNode* pos = LTFind(plist, 888);
 	LTInsert(pos, 999);
 

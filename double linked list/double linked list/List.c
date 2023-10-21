@@ -23,6 +23,14 @@ LTNode* LTInit()
 	phead->next = phead;
 	return phead;
 }
+//void LTInit(LTNode** phead)
+//{
+//	assert(phead);
+//	* phead = BuyLTNode(-1);
+//	(*phead)->prev = *phead;
+//	(*phead)->next = *phead;
+//	(*phead)->data = 0;
+//}
 
 //´òÓ¡Á´±í
 void LTPrint(LTNode* phead)
@@ -118,7 +126,6 @@ void LTPopFront(LTNode* phead)
 //	phead->next = second;
 //	free(first);
 //}
-//new
 
 
 //Î²É¾

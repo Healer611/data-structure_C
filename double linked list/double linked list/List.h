@@ -14,6 +14,7 @@ typedef struct ListNode
 
 //初始化链表
 LTNode* LTInit();
+//void LTInit(LTNode** phead);
 
 //打印链表
 void LTPrint(LTNode* phead);
