@@ -4,11 +4,11 @@
 void QueueInit(Queue* pq)
 {
 	assert(pq);
+
 	pq->phead = NULL;
 	pq->ptail = NULL;
 	pq->size = 0;
 }
-
 void QueueDestroy(Queue* pq)
 {
 	assert(pq);
