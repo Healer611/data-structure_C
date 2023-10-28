@@ -382,3 +382,125 @@ struct ListNode* detectCycle(struct ListNode* head) {
 }
 
 
+//138. 随机链表的复制
+//https://leetcode.cn/problems/copy-list-with-random-pointer/description/
+//Definition for a Node.
+ struct Node {
+      int val;
+      struct Node *next;
+      struct Node *random;
+ };
+
+
+struct Node* copyRandomList(struct Node* head) {
+    struct Node* cur = head;
+    while (cur) {
+        struct Node* copy = (struct Node*)malloc(sizeof(struct Node));
+        copy->val = cur->val;
+        struct Node* next = cur->next;
+        cur->next = copy;
+        copy->next = next;
+        cur = next;
+    }
+
+    cur = head;
+    while (cur) {
+        struct Node* copy = cur->next;
+        if (cur->random == NULL)
+            copy->random = NULL;
+
+        else
+            copy->random = cur->random->next;
+
+        cur = copy->next;
+    }
+
+    struct Node* copyHead = NULL, * copyTail = NULL;
+    cur = head;
+    while (cur)
+    {
+        struct Node* copy = cur->next;
+        struct Node* next = copy->next;
+
+        if (copyTail == NULL)
+            copyHead = copyTail = copy;
+        else {
+            copyTail->next = copy;
+            copyTail = copyTail->next;
+        }
+        cur->next = next;
+        cur = next;
+    }
+    return copyHead;
+}
+
+
+//147. 对链表进行插入排序
+//https://leetcode.cn/problems/insertion-sort-list/description/
+//Definition for singly-linked list.
+struct ListNode {
+    int val;
+     struct ListNode *next;
+};
+
+struct ListNode* insertionSortList(struct ListNode* head) {
+    struct ListNode* rhead = malloc(sizeof(struct ListNode));
+    rhead->val = 0;
+    rhead->next = head;
+    struct ListNode* cur = head;
+    struct ListNode* next = head->next;
+    while (next) {
+        if (cur->val <= next->val) {
+            cur = cur->next;
+        }
+        else {
+            struct ListNode* prev = rhead;
+            while (prev->next->val <= next->val) {
+                prev = prev->next;
+            }
+            cur->next = next->next;
+            next->next = prev->next;
+            prev->next = next;
+        }
+        next = cur->next;
+    }
+    return rhead->next;
+}
+
+
+
+//JZ76 删除链表中重复的结点
+//https://www.nowcoder.com/practice/fc533c45b73a41b0b44ccba763f866ef?tpId=13&&tqId=11209&rp=1&ru=/activity/oj&qru=/ta/coding-interviews/question-ranking
+struct ListNode {
+   int val;
+   struct ListNode* next;
+    
+};
+
+struct ListNode* deleteDuplication(struct ListNode* pHead) {
+    struct ListNode* cur = pHead;
+    struct ListNode* prev = NULL;
+
+    while (cur) {
+        if (cur->next && cur->val == cur->next->val) {
+            int Val = cur->val;
+            while (cur && cur->val == Val) {
+                struct ListNode* temp = cur;
+                cur = cur->next;
+                free(temp);
+            }
+            if (prev == NULL) {
+                pHead = cur;
+            }
+            else {
+                prev->next = cur;
+            }
+        }
+        else {
+            prev = cur;
+            cur = cur->next;
+        }
+    }
+
+    return pHead;
+}
