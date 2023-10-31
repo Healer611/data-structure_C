@@ -67,3 +67,4 @@ void myCircularQueueFree(MyCircularQueue* obj) {
     free(obj->a);
     free(obj);
 }
+
