@@ -83,7 +83,7 @@ void AdjustDown(HPDataType* a, int size, int parent)
 			break;
 		}
 	}
-}
+}	
 
 void HeapPop(HP* php)
 {
