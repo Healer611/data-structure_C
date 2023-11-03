@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-
+#include "Queue.h"
 typedef int BTDataType;
 typedef struct BinaryTreeNode
 {
@@ -76,6 +76,25 @@ void PostOrder(BTNode* root)
 	PostOrder(root->left);
 	PostOrder(root->right);
 	printf("%d ", root->data);
+}
+
+void LevelOrder(BTNode* root)
+{
+	Queue q;
+	QueueInit(&q);
+	if (root)
+		QueuePush(&q, root);
+	while (!QueueEmpty(&q)) {
+		BTNode* front = QueueFront(&q);
+		QueuePop(&q);
+		printf("%d ", front->data);
+		if (front->left)
+			QueuePush(&q, front->left);
+		if (front->right)
+			QueuePush(&q, front->right);
+	}
+	printf("\n");
+	QueueDestroy(&q);
 }
 
 int BTreeSize(BTNode* root)
@@ -203,10 +222,12 @@ int main()
 
 	//printf("BTreeLevelKSize:%d\n", BTreeLevelKSize(root, 3));
 	//printf("BTreeLevelKSize:%d\n", BTreeLevelKSize(root, 4));
-	BTNode* tmp = BTreeFind(root, 5);
+	/*BTNode* tmp = BTreeFind(root, 5);
 	if (tmp) {
 		puts("yes");
-	}
-	
+	}*/
+
+	LevelOrder(root);
+
 	return 0;
 }
