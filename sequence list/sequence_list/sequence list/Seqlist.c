@@ -98,7 +98,7 @@ void SLInsert(SL* psl, int pos, SLDatatype x)//指定位置插入元素,可代替头插尾插
 	assert(0 <= pos && pos <= psl->size);//判读插入位置是否合法
 	SLCheckCapacity(psl);
 	int end = psl->size - 1;
-	while (end > 0) {
+	while (end >= pos) {
 		psl->a[end + 1] = psl->a[end];
 		end--;
 	}
