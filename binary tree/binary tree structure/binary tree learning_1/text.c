@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <stdbool.h>
 #include "Queue.h"
 typedef int BTDataType;
 typedef struct BinaryTreeNode
@@ -97,6 +98,34 @@ void LevelOrder(BTNode* root)
 	QueueDestroy(&q);
 }
 
+bool BTreeComplete(BTNode* root)
+{
+	Queue q;
+	QueueInit(&q);
+	if (root)
+		QueuePush(&q, root);
+	while (!QueueEmpty(&q)) {
+		BTNode* front = QueueFront(&q);
+		QueuePop(&q);
+
+		if (front == NULL)
+			break;
+
+		QueuePush(&q, front->left);
+		QueuePush(&q, front->right);
+	}
+	while (!QueueEmpty(&q)) {
+		BTNode* front = QueueFront(&q);
+		QueuePop(&q);
+		if (front) {
+			QueueDestroy(&q);
+			return false;
+		}
+	}
+	QueueDestroy(&q);
+	return true;
+}
+
 int BTreeSize(BTNode* root)
 {
 	/*if (root == NULL)
@@ -184,6 +213,15 @@ BTNode* BTreeFind(BTNode* root, BTDataType x)
 	return NULL;
 }
 
+void BTreeDestroy(BTNode* root)
+{
+	if (root == NULL)
+		return;
+	BTreeDestroy(root->left);
+	BTreeDestroy(root->right);
+	free(root);
+}
+
 int main()
 {
 	BTNode* root = CreatBinaryTree();
@@ -227,7 +265,9 @@ int main()
 		puts("yes");
 	}*/
 
-	LevelOrder(root);
-
+	//LevelOrder(root);
+	printf("%d\n", BTreeComplete(root));
+	BTreeDestroy(root);
+	root = NULL;
 	return 0;
 }
