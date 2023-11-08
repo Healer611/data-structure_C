@@ -33,7 +33,7 @@ void ShellSort(int* a, int n)
 	//2、gap == 1 直接插入排序
 	int gap = n;
 	while (gap > 1) {
-		gap = gap / 3 + 1;
+		gap = gap / 3 + 1;// +1可以保证最后一次一定是1
 		for (int i = 0; i < n - gap; i++) {
 			int end = i;
 			int tmp = a[end + gap];
@@ -113,4 +113,92 @@ void SelectSort(int* a, int n)
 		++begin;
 		--end;
 	}
+}
+
+void AdjustDown(int* a, int n, int parent)
+{
+	int child = parent * 2 + 1;
+	while (child < n) {
+		if (child + 1 < n && a[child + 1] > a[child]) {
+			child++;
+		}
+		if (a[child] > a[parent]) {
+			Swap(&a[child], &a[parent]);
+			parent = child;
+			child = parent * 2 + 1;
+		}
+		else {
+			break;
+		}
+	}
+}
+void HeapSort(int* a, int n)
+{
+	for (int i = (n - 1 - 1) / 2; i >= 0; --i) {
+		AdjustDown(a, n, i);
+	}
+	int end = n - 1;
+	while (end > 0) {
+		Swap(&a[0], &a[end]);
+		AdjustDown(a, end, 0);
+		end--;
+	}
+}
+
+// hoare
+// [left, right]
+int PartSort1(int* a, int left, int right)
+{
+	int keyi = left;
+	while (left < right) {
+		//右边找小
+		while (left < right && a[right] >= a[keyi]) {
+			right--;
+		}
+		while (left < right && a[left] <= a[keyi]) {
+			left++;
+		}
+		Swap(&a[left], &a[right]);
+	}
+	Swap(&a[keyi], &a[left]);
+}
+
+// 挖坑法
+// [left, right]
+int PartSort2(int* a, int left, int right)
+{
+	int key = a[left];
+	int hole = left;
+	while (left < right) {
+		while (left < right && a[right] >= key) {
+			right--;
+		}
+		a[hole] = a[right];
+		hole = right;
+		while (left < right && a[left] <= key) {
+			left++;
+		}
+		a[hole] = a[left];
+		hole = right;
+	}
+	a[hole] = key;
+	return hole;
+}
+
+// 前后指针法
+// [left, right]
+int PartSort3(int* a, int left, int right)
+{
+	int prev = left;
+	int cur = left + 1;
+	int keyi = left;
+	while (cur <= right) {
+		if (a[cur] < a[keyi] && ++prev != cur) {
+			Swap(&a[prev], &a[cur]);
+		}
+		cur++;
+	}
+	Swap(a[prev], &a[keyi]);
+	keyi = prev;
+	return keyi;
 }
