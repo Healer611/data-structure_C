@@ -1,7 +1,7 @@
-#define _CRT_SECURE_NO_WARNINGS 1
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdbool.h>
+//#define _CRT_SECURE_NO_WARNINGS 1
+//#include<stdio.h>
+//#include<stdlib.h>
+//#include<stdbool.h>
 //void InsertSort(int* a, int n)
 //{
 //	for (int i = 0; i < n - 1; i++) {
@@ -84,4 +84,20 @@
 //		begin++;
 //		end--;
 //	}
+//}
+//
+//int PartSort3(int* a, int left, int right)
+//{
+//	int prev = left;
+//	int cur = left + 1;
+//	int keyi = left;
+//	while (cur <= right) {
+//		if (a[cur] < a[keyi] && ++prev != cur) {
+//			Swap(&a[prev], &a[cur]);
+//		}
+//		++cur;
+//	}
+//	Swap(&a[prev], &a[keyi]);
+//	keyi = prev;
+//	return keyi;
 //}

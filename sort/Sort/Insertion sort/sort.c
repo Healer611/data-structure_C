@@ -145,10 +145,41 @@ void HeapSort(int* a, int n)
 	}
 }
 
+
+int GetMidIndex(int* a, int left, int right)
+{
+	int mid = (left + right) / 2;
+	if (a[left] < a[mid]) {
+		if (a[mid] < a[right]) {
+			return mid;
+		}
+		else if (a[left] < a[right]) {
+			return right;
+		}
+		else {
+			return left;
+		}
+	}
+	else {//a[left]>a[mid]
+		if (a[mid] > a[right]) {
+			return mid;
+		}
+		else if (a[left] < a[right]) {
+			return left;
+		}
+		else {
+			return left;
+		}
+	}
+}
+
 // hoare
 // [left, right]
 int PartSort1(int* a, int left, int right)
 {
+	/*int midi = GetMidIndex(a, left, right);
+	Swap(&a[left], &a[midi]);*/
+
 	int keyi = left;
 	while (left < right) {
 		//右边找小
@@ -158,15 +189,22 @@ int PartSort1(int* a, int left, int right)
 		while (left < right && a[left] <= a[keyi]) {
 			left++;
 		}
+
 		Swap(&a[left], &a[right]);
 	}
+
 	Swap(&a[keyi], &a[left]);
+
+	return left;
 }
 
 // 挖坑法
 // [left, right]
 int PartSort2(int* a, int left, int right)
 {
+	int midi = GetMidIndex(a, left, right);
+	Swap(&a[left], &a[midi]);
+
 	int key = a[left];
 	int hole = left;
 	while (left < right) {
@@ -189,16 +227,33 @@ int PartSort2(int* a, int left, int right)
 // [left, right]
 int PartSort3(int* a, int left, int right)
 {
+	int midi = GetMidIndex(a, left, right);
+	Swap(&a[left], &a[midi]);
+
 	int prev = left;
 	int cur = left + 1;
 	int keyi = left;
-	while (cur <= right) {
-		if (a[cur] < a[keyi] && ++prev != cur) {
+	while (cur <= right){
+		if (a[cur] < a[keyi] && ++prev != cur){
 			Swap(&a[prev], &a[cur]);
 		}
-		cur++;
+		++cur;
 	}
-	Swap(a[prev], &a[keyi]);
+	Swap(&a[prev], &a[keyi]);
 	keyi = prev;
 	return keyi;
+}
+
+// 时间复杂度: O(logN*N)
+// 空间复杂度：O(logN)
+void QuickSort(int* a, int begin, int end)
+{
+	if (begin >= end)
+		return;
+
+	int keyi = PartSort3(a, begin, end);
+	// [begin, keyi-1] keyi [keyi+1, end]
+
+	QuickSort(a, begin, keyi - 1);
+	QuickSort(a, keyi + 1, end);
 }

@@ -85,7 +85,7 @@ void TestOP()
 	int end1 = clock();
 
 	int begin2 = clock();
-	ShellSort(a2, N);
+	//ShellSort(a2, N);
 	int end2 = clock();
 
 	int begin3 = clock();
@@ -97,12 +97,12 @@ void TestOP()
 	int end4 = clock();
 
 	int begin5 = clock();
-	HeapSort(a5, N);
+	//HeapSort(a5, N);
 	int end5 = clock();
 
-	//int begin6 = clock();
-	//QuickSort(a6, 0, N - 1);
-	//int end6 = clock();
+	int begin6 = clock();
+	QuickSort(a6, 0, N - 1);
+	int end6 = clock();
 
 	printf("InsertSort:%d\n", end1 - begin1);
 	printf("ShellSort:%d\n", end2 - begin2);
