@@ -8,7 +8,7 @@ void PrintArray(int* a, int n)
 	}
 	printf("\n");
 }
-
+//÷±Ω”≤Â»Î≈≈–Ú
 void InsertSort(int* a, int n)
 {
 	for (int i = 0; i < n - 1; i++) {
@@ -26,7 +26,7 @@ void InsertSort(int* a, int n)
 		a[end + 1] = tmp;
 	}
 }
-
+//œ£∂˚≈≈–Ú
 void ShellSort(int* a, int n)
 {
 	//1°¢gap >  1 ‘§≈≈–Ú
@@ -50,7 +50,7 @@ void ShellSort(int* a, int n)
 		}
 	}
 }
-
+//√∞≈›≈≈–Ú
 void BubbleSort(int* a, int n)
 {
 	for (int j = 0; j < n; ++j)
@@ -81,7 +81,7 @@ void Swap(int* p1, int* p2)
 	*p1 = *p2;
 	*p2 = tmp;
 }
-
+//—°‘Ò≈≈–Ú
 void SelectSort(int* a, int n)
 {
 	int begin = 0, end = n - 1;
@@ -114,7 +114,7 @@ void SelectSort(int* a, int n)
 		--end;
 	}
 }
-
+//œÚœ¬µ˜’˚
 void AdjustDown(int* a, int n, int parent)
 {
 	int child = parent * 2 + 1;
@@ -132,6 +132,7 @@ void AdjustDown(int* a, int n, int parent)
 		}
 	}
 }
+//∂—≈≈–Ú
 void HeapSort(int* a, int n)
 {
 	for (int i = (n - 1 - 1) / 2; i >= 0; --i) {
@@ -145,7 +146,7 @@ void HeapSort(int* a, int n)
 	}
 }
 
-
+//»˝ ˝»°÷–
 int GetMidIndex(int* a, int left, int right)
 {
 	int mid = (left + right) / 2;
@@ -168,7 +169,7 @@ int GetMidIndex(int* a, int left, int right)
 			return left;
 		}
 		else {
-			return left;
+			return right;
 		}
 	}
 }
@@ -177,8 +178,8 @@ int GetMidIndex(int* a, int left, int right)
 // [left, right]
 int PartSort1(int* a, int left, int right)
 {
-	/*int midi = GetMidIndex(a, left, right);
-	Swap(&a[left], &a[midi]);*/
+	int midi = GetMidIndex(a, left, right);
+	Swap(&a[left], &a[midi]);
 
 	int keyi = left;
 	while (left < right) {
@@ -256,4 +257,43 @@ void QuickSort(int* a, int begin, int end)
 
 	QuickSort(a, begin, keyi - 1);
 	QuickSort(a, keyi + 1, end);
+}
+
+//πÈ≤¢≈≈–Ú
+void _MergeSort(int* a, int begin, int end, int* tmp)
+{
+	if (begin == end)
+		return;
+	int mid = (begin + end) / 2;
+	_MergeSort(a, begin, mid, tmp);
+	_MergeSort(a, mid + 1, end, tmp);
+	int begin1 = begin, end1 = mid;
+	int begin2 = mid + 1, end2 = end;
+	int i = begin;
+	while (begin1 <= end1 && begin2 <= end2)
+	{
+		if (a[begin1] < a[begin2])
+		{
+			tmp[i++] = a[begin1++];
+		}
+		else
+		{
+			tmp[i++] = a[begin2++];
+		}
+	}
+	while (begin1 <= end1)
+	{
+		tmp[i++] = a[begin1++];
+	}
+	while (begin2 <= end2)
+	{
+		tmp[i++] = a[begin2++];
+	}
+	memcpy(a + begin, tmp + begin, sizeof(int) * (end - begin + 1));
+}
+void MergeSort(int* a, int n)
+{
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	_MergeSort(a, 0, n - 1, tmp);
+	free(tmp);
 }

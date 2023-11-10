@@ -1,4 +1,4 @@
-#include"Sort.h"
+#include"sort.h"
 #include<time.h>
 
 void TestInsertSort()
@@ -52,7 +52,21 @@ void TestQuickSort()
 	int a[] = { 6,1,2,7,9,3,4,5,10,8 };
 
 	PrintArray(a, sizeof(a) / sizeof(int));
-	QuickSort(a, 0, sizeof(a) / sizeof(int) - 1);
+	QuickSort(a, 0, sizeof(a) / sizeof(int)-1);
+	//QuickSortNonR(a, 0, sizeof(a) / sizeof(int) - 1);
+
+	PrintArray(a, sizeof(a) / sizeof(int));
+}
+
+void TestMergeSort()
+{
+	//int a[] = { 4,7,1,9,3,6,5,8,3,2,0 };
+	//int a[] = { 6,1,2,7,9,3,4,5,10,8 };
+	int a[] = { 10,6,7,1,3,9,4,2,7 };
+
+	PrintArray(a, sizeof(a) / sizeof(int));
+	//MergeSortNonR(a, sizeof(a) / sizeof(int));
+	MergeSort(a, sizeof(a) / sizeof(int));
 	PrintArray(a, sizeof(a) / sizeof(int));
 }
 
@@ -85,7 +99,7 @@ void TestOP()
 	int end1 = clock();
 
 	int begin2 = clock();
-	//ShellSort(a2, N);
+	ShellSort(a2, N);
 	int end2 = clock();
 
 	int begin3 = clock();
@@ -97,12 +111,16 @@ void TestOP()
 	int end4 = clock();
 
 	int begin5 = clock();
-	//HeapSort(a5, N);
+	HeapSort(a5, N);
 	int end5 = clock();
 
 	int begin6 = clock();
 	QuickSort(a6, 0, N - 1);
 	int end6 = clock();
+
+	int begin7 = clock();
+	MergeSort(a7, N);
+	int end7 = clock();
 
 	printf("InsertSort:%d\n", end1 - begin1);
 	printf("ShellSort:%d\n", end2 - begin2);
@@ -110,6 +128,7 @@ void TestOP()
 	printf("SelcetSort:%d\n", end4 - begin4);
 	printf("HeapSort:%d\n", end5 - begin5);
 	printf("QuickSort:%d\n", end6 - begin6);
+	printf("MergeSort:%d\n", end7 - begin7);
 
 	free(a1);
 	free(a2);
@@ -128,8 +147,9 @@ int main()
 	//TestSelectSort();
 	//TestHeapSort();
 	//TestQuickSort();
+	TestMergeSort();
 
-	TestOP();
+	//TestOP();
 
 	return 0;
 }

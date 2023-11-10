@@ -5,9 +5,7 @@ void STInit(ST* pst)
 	assert(pst);
 	pst->a = NULL;
 
-	//pst->top = -1;   // top 指向栈顶数据
-	pst->top = 0;   // top 指向栈顶数据的下一个位置
-
+	pst->top = 0;   
 	pst->capacity = 0;
 }
 
@@ -59,15 +57,6 @@ STDataType STTop(ST* pst)
 bool STEmpty(ST* pst)
 {
 	assert(pst);
-
-	/*if (pst->top == 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}*/
 
 	return pst->top == 0;
 }
