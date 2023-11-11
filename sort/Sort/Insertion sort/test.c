@@ -52,8 +52,8 @@ void TestQuickSort()
 	int a[] = { 6,1,2,7,9,3,4,5,10,8 };
 
 	PrintArray(a, sizeof(a) / sizeof(int));
-	QuickSort(a, 0, sizeof(a) / sizeof(int)-1);
-	//QuickSortNonR(a, 0, sizeof(a) / sizeof(int) - 1);
+	//QuickSort(a, 0, sizeof(a) / sizeof(int)-1);
+	QuickSortNonR(a, 0, sizeof(a) / sizeof(int) - 1);
 
 	PrintArray(a, sizeof(a) / sizeof(int));
 }

@@ -167,3 +167,36 @@
 //	QuickSort(a, begin, keyi - 1);
 //	QuickSort(a, keyi + 1, end);
 //}
+//void Swap(int* a, int* b)
+//{
+//	int tmp = *a;
+//	*a = *b;
+//	*b = tmp;
+//}
+//int PartSort(int* a, int left, int right)
+//{
+//	int midi = GetMidIndex(a, left, right);
+//	Swap(&a[left], &a[midi]);
+//	int prev = left;
+//	int cur = left + 1;
+//	int keyi = left;
+//	while (cur <= right)
+//	{
+//		if (a[cur] < a[keyi])
+//		{
+//			Swap(&a[prev], &a[cur]);
+//		}
+//		cur++;
+//	}
+//	Swap(&a[prev], &a[keyi]);
+//	keyi = prev;
+//	return keyi;
+//}
+//void QuickSort(int* a, int begin, int end) {
+//	if (begin >= end)
+//		return;
+//	int keyi = PartSort(a, begin, end);
+//	QuickSort(a, begin, keyi - 1);
+//	QuickSort(a, keyi + 1, end);
+//}
+//

@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include "sort.h"
-
+#include "Stack.h"
 void PrintArray(int* a, int n)
 {
 	for (int i = 0; i < n; i++) {
@@ -257,6 +257,42 @@ void QuickSort(int* a, int begin, int end)
 
 	QuickSort(a, begin, keyi - 1);
 	QuickSort(a, keyi + 1, end);
+}
+
+void QuickSortNonR(int* a, int begin, int end)
+{
+	ST st;
+	STInit(&st);
+	STPush(&st, end);
+	STPush(&st, begin);
+
+	while (!STEmpty(&st))
+	{
+		int left = STTop(&st);
+		STPop(&st);
+
+		int right = STTop(&st);
+		STPop(&st);
+
+		//int keyi = PartSort3(a, left, right);
+		int keyi = PartSort1(a, left, right);
+
+		// [left, keyi-1] keyi [keyi+1, right]
+
+		if (keyi + 1 < right)
+		{
+			STPush(&st, right);
+			STPush(&st, keyi + 1);
+		}
+
+		if (left < keyi - 1)
+		{
+			STPush(&st, keyi - 1);
+			STPush(&st, left);
+		}
+	}
+
+	STDestroy(&st);
 }
 
 //¹é²¢ÅÅÐò
