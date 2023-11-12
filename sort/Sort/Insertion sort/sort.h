@@ -14,4 +14,5 @@ void QuickSort(int* a, int begin, int end);
 void QuickSortNonR(int* a, int begin, int end);
 
 void MergeSort(int* a, int n);
-//void MergeSortNonR(int* a, int n);
+void MergeSortNonR(int* a, int n);
+void MergeSortNonR2(int* a, int n);

@@ -327,9 +327,154 @@ void _MergeSort(int* a, int begin, int end, int* tmp)
 	}
 	memcpy(a + begin, tmp + begin, sizeof(int) * (end - begin + 1));
 }
+
 void MergeSort(int* a, int n)
 {
 	int* tmp = (int*)malloc(sizeof(int) * n);
 	_MergeSort(a, 0, n - 1, tmp);
 	free(tmp);
+}
+
+void MergeSortNonR(int* a, int n)
+{
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	int gap = 1;
+	while (gap < n)
+	{
+		int j = 0;
+		for (int i = 0; i < n; i += 2 * gap)
+		{
+			// 每组的合并数据
+			int begin1 = i, end1 = i + gap - 1;
+			int begin2 = i + gap, end2 = i + 2 * gap - 1;
+			// 修正
+			if (end1 >= n || begin2 >= n)
+			{
+				break;
+			}
+			if (end2 >= n)
+			{
+				end2 = n - 1;
+			}
+			while (begin1 <= end1 && begin2 <= end2)
+			{
+				if (a[begin1] <= a[begin2])
+				{
+					tmp[j++] = a[begin1++];
+				}
+				else
+				{
+					tmp[j++] = a[begin2++];
+				}
+			}
+			while (begin1 <= end1)
+			{
+				tmp[j++] = a[begin1++];
+			}
+			while (begin2 <= end2)
+			{
+				tmp[j++] = a[begin2++];
+			}
+			// 归并一组，拷贝一组
+			memcpy(a + i, tmp + i, sizeof(int) * (end2 - i + 1));
+		}
+		gap *= 2;
+	}
+	free(tmp);
+}
+
+void MergeSortNonR2(int* a, int n)
+{
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	int gap = 1;
+	while (gap < n)
+	{
+		int j = 0;
+		for (int i = 0; i < n; i += 2 * gap)
+		{
+			// 每组的合并数据
+			int begin1 = i, end1 = i + gap - 1;
+			int begin2 = i + gap, end2 = i + 2 * gap - 1;
+			if (end1 >= n)
+			{
+				end1 = n - 1;
+				// 不存在区间
+				begin2 = n;
+				end2 = n - 1;
+			}
+			else if (begin2 >= n)
+			{
+				// 不存在区间
+				begin2 = n;
+				end2 = n - 1;
+			}
+			else if (end2 >= n)
+			{
+				end2 = n - 1;
+			}
+			while (begin1 <= end1 && begin2 <= end2)
+			{
+				if (a[begin1] <= a[begin2])
+				{
+					tmp[j++] = a[begin1++];
+				}
+				else
+				{
+					tmp[j++] = a[begin2++];
+				}
+			}
+			while (begin1 <= end1)
+			{
+				tmp[j++] = a[begin1++];
+			}
+			while (begin2 <= end2)
+			{
+				tmp[j++] = a[begin2++];
+			}
+		}
+		gap *= 2;
+		memcpy(a, tmp, sizeof(int) * n);
+	}
+	free(tmp);
+}
+
+// 时间复杂度：O(N+Range)
+// 空间复杂度：O(Range)
+// 缺陷1：依赖数据范围，适用于范围集中的数组
+// 缺陷2：只能用于整形
+void CountSort(int* a, int n)
+{
+	int min = a[0], max = a[0];
+	for (int i = 0; i < n; i++)
+	{
+		if (a[i] < min)
+		{
+			min = a[i];
+		}
+
+		if (a[i] > max)
+		{
+			max = a[i];
+		}
+	}
+
+	int range = max - min + 1;
+	int* countA = (int*)malloc(sizeof(int) * range);
+	memset(countA, 0, sizeof(int) * range);
+
+	// 统计次数
+	for (int i = 0; i < n; i++)
+	{
+		countA[a[i] - min]++;
+	}
+
+	// 排序
+	int k = 0;
+	for (int j = 0; j < range; j++)
+	{
+		while (countA[j]--)
+		{
+			a[k++] = j + min;
+		}
+	}
 }

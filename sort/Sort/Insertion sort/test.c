@@ -65,8 +65,8 @@ void TestMergeSort()
 	int a[] = { 10,6,7,1,3,9,4,2,7 };
 
 	PrintArray(a, sizeof(a) / sizeof(int));
-	//MergeSortNonR(a, sizeof(a) / sizeof(int));
-	MergeSort(a, sizeof(a) / sizeof(int));
+	MergeSortNonR2(a, sizeof(a) / sizeof(int));
+	//MergeSort(a, sizeof(a) / sizeof(int));
 	PrintArray(a, sizeof(a) / sizeof(int));
 }
 
@@ -147,7 +147,7 @@ int main()
 	//TestSelectSort();
 	//TestHeapSort();
 	//TestQuickSort();
-	TestMergeSort();
+ 	TestMergeSort();
 
 	//TestOP();
 
